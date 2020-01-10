@@ -1,5 +1,6 @@
 package util;
 
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -11,6 +12,18 @@ import java.util.Map;
  * http 请求工具类
  */
 public class HttpUtil {
+
+    /**
+     *  获取通用请求对象，可使用请求对象自定义http请求
+     * @return 请求对象
+     */
+    public static RestTemplate getRestTemplate(){
+        HttpComponentsClientHttpRequestFactory httpRequestFactory = new HttpComponentsClientHttpRequestFactory();
+        httpRequestFactory.setConnectionRequestTimeout(3000);
+        httpRequestFactory.setConnectTimeout(3000);
+        httpRequestFactory.setReadTimeout(3000);
+        return new RestTemplate(httpRequestFactory);
+    }
 
 
     /**
@@ -40,8 +53,7 @@ public class HttpUtil {
      * @return 指定类型的数据对象
      */
     public static <T> T doGetParams(String url, Class<T> tClass, Map<String, ?> params){
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(url, tClass, params);
+        return getRestTemplate().getForObject(url, tClass, params);
     }
 
     /**
@@ -71,8 +83,7 @@ public class HttpUtil {
      * @return 指定类型的数据对象
      */
     public static <T> T doPostBodyParams(String url, Class<T> tClass, Map<String, ?> params){
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForObject(url, params, tClass);
+        return getRestTemplate().postForObject(url, params, tClass);
     }
 
     /**
@@ -83,8 +94,7 @@ public class HttpUtil {
      * @return 指定类型的数据对象
      */
     public static <T> T doPostBodyParams(String url, Class<T> tClass, Object object){
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForObject(url, object, tClass);
+        return getRestTemplate().postForObject(url, object, tClass);
     }
 
     /**
