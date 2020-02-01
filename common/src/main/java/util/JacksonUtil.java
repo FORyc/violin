@@ -3,11 +3,13 @@ package util;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.extern.slf4j.Slf4j;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -64,6 +66,22 @@ public class JacksonUtil {
             return mapper.readValue(Objects.requireNonNull(string), Objects.requireNonNull(tClass));
         } catch (JsonProcessingException e) {
             log.error("Parse String to Object error", e);
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     *  jsonString 转 指定类型的 list
+     * @param string 待转换的jsonString
+     * @param beanType 指定的数据类型
+     * @return 指定数据类型的list列表
+     */
+    public static <T> List<T> jsonString2List(String string, Class<T> beanType){
+        JavaType javaType = mapper.getTypeFactory().constructParametricType(List.class, beanType);
+        try {
+            return mapper.readValue(Objects.requireNonNull(string), javaType);
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
         return null;
