@@ -20,7 +20,7 @@ import java.util.Objects;
 public class JacksonUtil {
 
 
-    private static ObjectMapper mapper = new ObjectMapper();
+    private static final ObjectMapper mapper = new ObjectMapper();
     // 日起格式化
     private static final String DEFAULT_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
@@ -82,6 +82,7 @@ public class JacksonUtil {
         try {
             return mapper.readValue(Objects.requireNonNull(string), javaType);
         } catch (JsonProcessingException e) {
+            log.error("Parse String to List error", e);
             e.printStackTrace();
         }
         return null;
