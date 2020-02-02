@@ -6,7 +6,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -16,9 +17,9 @@ import java.util.Objects;
  * json 工具类
  * 主要使用Jackson的方式
  */
-@Slf4j
 public class JacksonUtil {
 
+    private static final Logger log = LoggerFactory.getLogger(JacksonUtil.class);
 
     private static final ObjectMapper mapper = new ObjectMapper();
     // 日起格式化
