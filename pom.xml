@@ -6,6 +6,7 @@
         <module>common</module>
         <module>test</module>
         <module>cloud</module>
+        <module>myblogs</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
