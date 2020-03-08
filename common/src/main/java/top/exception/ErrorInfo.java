@@ -1,4 +1,4 @@
-package exception;
+package top.exception;
 
 /**
  * @author master

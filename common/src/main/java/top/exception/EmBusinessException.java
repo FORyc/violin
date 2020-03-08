@@ -1,6 +1,6 @@
-package exception;
+package top.exception;
 
-import constants.Constant;
+import top.constants.Constant;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
