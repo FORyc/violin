@@ -6,7 +6,7 @@ import top.constants.Constant;
  * 通用返回实体类
  * @author 9527
  */
-public class Result {
+public class CommonResult<T> {
 
     /**
      * 状态码
@@ -21,40 +21,40 @@ public class Result {
     /**
      * 自定义内容
      */
-    private Object object;
+    private T object;
 
-    public static Result success(){
-        Result result = new Result();
+    public static <T> CommonResult<T> success(){
+        CommonResult<T> result = new CommonResult<T>();
         result.setCode(Constant.SUCCESS);
         result.setMsg("success");
         return result;
     }
 
-    public static Result success(Object object){
-        Result result = new Result();
+    public static <T> CommonResult<T> success(T object){
+        CommonResult<T> result = new CommonResult<T>();
         result.setCode(Constant.SUCCESS);
         result.setMsg("success");
         result.setObject(object);
         return result;
     }
 
-    public static Result success(String msg){
-        Result result = new Result();
+    public static <T> CommonResult<T> success(String msg){
+        CommonResult<T> result = new CommonResult<T>();
         result.setCode(Constant.SUCCESS);
         result.setMsg(msg);
         return result;
     }
 
-    public static Result error(){
+    public static <T> CommonResult<T> error(){
         return error(Constant.FAIL, "fail");
     }
 
-    public static Result error(String msg){
+    public static <T> CommonResult <T> error(String msg){
         return error(Constant.FAIL, msg);
     }
 
-    public static Result error(int code, String msg){
-        Result result = new Result();
+    public static <T> CommonResult<T> error(int code, String msg){
+        CommonResult<T> result = new CommonResult<T>();
         result.setCode(code);
         result.setMsg(msg);
         return result;
@@ -77,11 +77,11 @@ public class Result {
         this.msg = msg;
     }
 
-    public Object getObject() {
+    public T getObject() {
         return object;
     }
 
-    public void setObject(Object object) {
+    public void setObject(T object) {
         this.object = object;
     }
 }
