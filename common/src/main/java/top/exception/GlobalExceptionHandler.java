@@ -12,7 +12,7 @@ import top.api.CommonResult;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(value = BusinessException.class)
+    @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public <T> CommonResult<T> handle(Exception e){
         if(e instanceof BusinessException){
