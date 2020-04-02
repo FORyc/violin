@@ -1,5 +1,8 @@
 package com.blogs.configuration.security;
 
+import com.blogs.configuration.security.filter.JwtAuthenticationTokenFilter;
+import com.blogs.configuration.security.handler.MyAccessDeniedHandler;
+import com.blogs.configuration.security.handler.MyAuthenticationEntryPoint;
 import com.blogs.service.SysUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -37,7 +41,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 //自定义权限拒绝处理类
-                .and();
+                .and()
+                .exceptionHandling()
+                .accessDeniedHandler(myAccessDeniedHandler())
+                .authenticationEntryPoint(myAuthenticationEntryPoint())
+                // 自定义权限拦截器JWT过滤器
+                .and()
+                .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
@@ -48,5 +58,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public MyAccessDeniedHandler myAccessDeniedHandler(){
+        return new MyAccessDeniedHandler();
+    }
+
+    @Bean
+    public MyAuthenticationEntryPoint myAuthenticationEntryPoint(){
+        return new MyAuthenticationEntryPoint();
+    }
+
+    @Bean
+    public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter(){
+        return new JwtAuthenticationTokenFilter();
     }
 }
