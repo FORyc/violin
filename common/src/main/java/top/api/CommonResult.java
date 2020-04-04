@@ -21,7 +21,7 @@ public class CommonResult<T> {
     /**
      * 自定义内容
      */
-    private T object;
+    private T data;
 
     public static <T> CommonResult<T> success(){
         CommonResult<T> result = new CommonResult<T>();
@@ -30,11 +30,11 @@ public class CommonResult<T> {
         return result;
     }
 
-    public static <T> CommonResult<T> success(T object){
+    public static <T> CommonResult<T> success(T data){
         CommonResult<T> result = new CommonResult<T>();
         result.setCode(Constant.SUCCESS);
         result.setMsg("success");
-        result.setObject(object);
+        result.setData(data);
         return result;
     }
 
@@ -77,11 +77,11 @@ public class CommonResult<T> {
         this.msg = msg;
     }
 
-    public T getObject() {
-        return object;
+    public T getData() {
+        return data;
     }
 
-    public void setObject(T object) {
-        this.object = object;
+    public void setData(T data) {
+        this.data = data;
     }
 }
