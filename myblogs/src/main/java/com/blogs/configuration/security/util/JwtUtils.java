@@ -1,8 +1,5 @@
 package com.blogs.configuration.security.util;
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.StrUtil;
-import com.blogs.entity.AdminUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -11,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -133,11 +131,11 @@ public class JwtUtils {
      * @param oldToken 带tokenHead的token
      */
     public String refreshHeadToken(String oldToken) {
-        if(StrUtil.isEmpty(oldToken)){
+        if(StringUtils.isEmpty(oldToken)){
             return null;
         }
         String token = oldToken.substring(jwtTokenPrefix.length());
-        if(StrUtil.isEmpty(token)){
+        if(StringUtils.isEmpty(token)){
             return null;
         }
         //token校验不通过
@@ -167,8 +165,9 @@ public class JwtUtils {
         Claims claims = getClaimsFromToken(token);
         Date created = claims.get(CLAIM_KEY_CREATED, Date.class);
         Date refreshDate = new Date();
+        long longTime = created.getTime() + time;
         //刷新时间在创建时间的指定时间内
-        if(refreshDate.after(created)&&refreshDate.before(DateUtil.offsetSecond(created,time))){
+        if(refreshDate.after(created) && refreshDate.before(new Date(longTime))){
             return true;
         }
         return false;
