@@ -22,6 +22,14 @@ import java.util.Scanner;
  */
 public class CodeGenerator {
 
+    private static final String MODULE_NAME = "/myblogs";
+    private static final String PARENT_PACKAGE = "com.blogs";
+
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC";
+    private static final String JDBC_USERNAME = "root";
+    private static final String JDBC_PASSWORD = "123456";
+    private static final String JDBC_DEVICE_NAME = "com.mysql.cj.jdbc.Driver";
+
     /**
      * <p>
      * 读取控制台内容
@@ -47,26 +55,25 @@ public class CodeGenerator {
 
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
-        String projectPath = System.getProperty("user.dir") + "/myblogs";
+        String projectPath = System.getProperty("user.dir") + MODULE_NAME;
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("9527");
         gc.setOpen(false);
-        // gc.setSwagger2(true); 实体属性 Swagger2 注解
+        // gc.setSwagger2(true); //实体属性 Swagger2 注解
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC");
-        // dsc.setSchemaName("public");
-        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-        dsc.setUsername("root");
-        dsc.setPassword("123456");
+        dsc.setUrl(JDBC_URL);
+        dsc.setDriverName(JDBC_DEVICE_NAME);
+        dsc.setUsername(JDBC_USERNAME);
+        dsc.setPassword(JDBC_PASSWORD);
         mpg.setDataSource(dsc);
 
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setModuleName(scanner("模块名"));
-//        pc.setParent("com.baomidou.ant");
+        pc.setParent(PARENT_PACKAGE);
         mpg.setPackageInfo(pc);
 
         // 自定义配置
@@ -89,7 +96,7 @@ public class CodeGenerator {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
+                return projectPath + "/src/main/resources/mapper/"
                         + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
             }
         });
