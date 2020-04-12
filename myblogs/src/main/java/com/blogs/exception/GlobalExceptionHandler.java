@@ -1,9 +1,10 @@
-package top.exception;
+package com.blogs.exception;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import top.api.CommonResult;
+import top.exception.BusinessException;
 
 /**
  * @author liu
