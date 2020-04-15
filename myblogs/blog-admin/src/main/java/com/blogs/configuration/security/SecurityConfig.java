@@ -21,6 +21,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final String[] IGNORE_URL = {"/api/getToken", "/admin/login", "/test/user/**"};
+
     @Autowired
     private SysUserDetailsService userDetailsService;
 
@@ -35,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 允许所有得OPTIONS请求
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 // 不需要保护的资源路径允许访问
-                .antMatchers("/api/getToken", "/admin/login").permitAll()
+                .antMatchers(IGNORE_URL).permitAll()
                 .and()
                 .authorizeRequests()
                 .anyRequest()
