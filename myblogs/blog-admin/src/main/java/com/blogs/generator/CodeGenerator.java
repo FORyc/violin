@@ -22,10 +22,10 @@ import java.util.Scanner;
  */
 public class CodeGenerator {
 
-    private static final String MODULE_NAME = "/myblogs";
+    private static final String MODULE_NAME = "/myblogs/blog-admin";
     private static final String PARENT_PACKAGE = "com.blogs";
 
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/test?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC";
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/demo?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC";
     private static final String JDBC_USERNAME = "root";
     private static final String JDBC_PASSWORD = "123456";
     private static final String JDBC_DEVICE_NAME = "com.mysql.cj.jdbc.Driver";
@@ -59,7 +59,8 @@ public class CodeGenerator {
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("9527");
         gc.setOpen(false);
-        // gc.setSwagger2(true); //实体属性 Swagger2 注解
+        //实体属性 Swagger2 注解
+         gc.setSwagger2(true);
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
