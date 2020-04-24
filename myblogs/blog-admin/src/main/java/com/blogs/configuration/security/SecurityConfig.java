@@ -3,7 +3,7 @@ package com.blogs.configuration.security;
 import com.blogs.configuration.security.filter.JwtAuthenticationTokenFilter;
 import com.blogs.configuration.security.handler.MyAccessDeniedHandler;
 import com.blogs.configuration.security.handler.MyAuthenticationEntryPoint;
-import com.blogs.service.SysUserDetailsService;
+import com.blogs.xuan.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] IGNORE_URL = {"/api/getToken", "/admin/login", "/test/user/**"};
 
     @Autowired
-    private SysUserDetailsService userDetailsService;
+    private ISysUserService sysUserService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -54,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(sysUserService).passwordEncoder(passwordEncoder());
     }
 
     @Bean

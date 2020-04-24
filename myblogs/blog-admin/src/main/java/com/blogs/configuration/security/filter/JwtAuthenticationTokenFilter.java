@@ -1,13 +1,14 @@
 package com.blogs.configuration.security.filter;
 
-import com.blogs.entity.AdminUser;
 import com.blogs.configuration.security.util.JwtUtils;
+import com.blogs.xuan.service.ISysUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -26,13 +27,15 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     private static final Logger log = LoggerFactory.getLogger(JwtAuthenticationTokenFilter.class);
 
-    @Autowired
-    private JwtUtils jwtUtils;
-
     @Value("${jwt.tokenHeader}")
     private String tokenHeader;
     @Value("${jwt.tokenPrefix}")
     private String tokenPrefix;
+
+    @Autowired
+    private JwtUtils jwtUtils;
+    @Autowired
+    private ISysUserService sysUserService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
@@ -43,10 +46,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             String username = jwtUtils.getUserNameFromToken(authToken);
             log.info("checking username:{}", username);
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-//                UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-                AdminUser userDetails = new AdminUser();
-                userDetails.setUsername("123456");
-
+                // 根据用户名查询用户
+                UserDetails userDetails = sysUserService.loadUserByUsername(username);
                 if (jwtUtils.validateToken(authToken, userDetails)) {
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
