@@ -1,9 +1,14 @@
 package com.blogs.xuan.controller;
 
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
+import top.api.CommonResult;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -13,9 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
  * @author 9527
  * @since 2020-04-22
  */
+@Slf4j
 @RestController
-@RequestMapping("/xuan/sys-user")
+@RequestMapping("/admin/sys-user")
 public class SysUserController {
+
+    @PostMapping(value = "/login")
+    public CommonResult login(HttpServletRequest request){
+        return CommonResult.success();
+    }
+
 
 }
 
