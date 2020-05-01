@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import top.api.CommonResult;
 import top.exception.BusinessException;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author liu
  *  全局全局异常处理类
@@ -19,13 +21,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
-    public <T> CommonResult<T> handle(Exception e){
+    public <T> CommonResult<T> handle(HttpServletRequest request, Exception e){
+        log.warn("请求[" + request.getRequestURI() + "]出现异常", e);
         if(e instanceof BusinessException){
-            log.warn("程序出现异常", e);
             BusinessException businessException = (BusinessException) e;
             return CommonResult.error(businessException.getErrorCode(), businessException.getErrorMessage());
         }
-        log.warn("程序出现异常", e);
         return CommonResult.error(e.getMessage());
     }
 }
