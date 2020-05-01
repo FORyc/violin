@@ -56,6 +56,13 @@ public class SysUser implements Serializable, UserDetails {
     @TableField(exist = false)
     private Set<SysPermission> authorities;
 
+    @TableField(exist = false)
+    private Set<SysRole> sysRoles;
+
+    @ApiModelProperty(value = "角色ID，主要用于管理员修改角色所传递的ID")
+    @TableField(exist = false)
+    private Long roleId;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,7 +1,6 @@
 package com.blogs.controller;
 
 import com.blogs.configuration.security.util.JwtUtils;
-import com.blogs.entity.AdminUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import top.api.Api;
@@ -30,10 +29,10 @@ public class SecurityController {
     @GetMapping(value = "/api/getToken")
     public String getToken(){
         if(true){
-            AdminUser adminUser = new AdminUser();
-            adminUser.setUsername("123456");
-            String token = jwtTokenPrefix + jwtUtils.generateToken(adminUser);
-            return Api.success(token);
+//            AdminUser adminUser = new AdminUser();
+//            adminUser.setUsername("123456");
+//            String token = jwtTokenPrefix + jwtUtils.generateToken(adminUser);
+//            return Api.success(token);
         }
         return Api.success();
     }

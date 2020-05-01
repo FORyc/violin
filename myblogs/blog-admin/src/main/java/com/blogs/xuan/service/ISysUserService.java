@@ -14,4 +14,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  */
 public interface ISysUserService extends IService<SysUser>, UserDetailsService {
 
+    /**
+     *  管理员登录操作
+     * @param username 用户名
+     * @param password 密码
+     * @return token
+     */
+    String login(String username, String password);
+
+    /**
+     *  新增管理员
+     * @param sysUser 管理员实体
+     * @param roleId 角色ID
+     * @return true/false
+     */
+    Boolean saveAdmin(SysUser sysUser, Long roleId);
+
 }
