@@ -1,8 +1,7 @@
 package top.exception;
 
-import top.constants.Constant;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import top.constants.Constant;
 
 /**
  * 自定义异常枚举类
@@ -10,10 +9,10 @@ import lombok.NoArgsConstructor;
  * @author master
  */
 @AllArgsConstructor
-@NoArgsConstructor
 public enum EmBusinessException implements ErrorInfo {
     // 通用错误
     DEFAULT_EXCEPTION(Constant.FAIL, "fail"),
+    USER_NOT_FOUND(Constant.FAIL, "为查询到相关用户"),
     ;
 
     private int errCode;

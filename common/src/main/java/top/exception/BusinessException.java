@@ -1,13 +1,10 @@
 package top.exception;
 
-import lombok.NoArgsConstructor;
-
 /**
  * 业务异常基类
  *
  * @author master
  */
-@NoArgsConstructor
 public class BusinessException extends RuntimeException implements ErrorInfo {
 
     private ErrorInfo errorInfo;
