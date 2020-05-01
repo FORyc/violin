@@ -1,9 +1,7 @@
 package com.blogs.xuan.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.blogs.xuan.entity.SysPermission;
-
-import java.util.Set;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
@@ -11,10 +9,8 @@ import java.util.Set;
  * </p>
  *
  * @author 9527
- * @since 2020-04-23
+ * @since 2020-04-30
  */
 public interface ISysPermissionService extends IService<SysPermission> {
-
-    Set<SysPermission> getPermissionByUid(Long uid);
 
 }

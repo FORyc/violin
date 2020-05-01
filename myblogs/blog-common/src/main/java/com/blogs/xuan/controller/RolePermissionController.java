@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author 9527
- * @since 2020-04-23
+ * @since 2020-04-30
  */
 @RestController
-@RequestMapping("/admin/role-permission")
+@RequestMapping("/xuan/role-permission")
 public class RolePermissionController {
 
 }

@@ -1,7 +1,7 @@
 package com.blogs.xuan.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.blogs.xuan.entity.SysPermission;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -13,7 +13,7 @@ import java.util.Set;
  * </p>
  *
  * @author 9527
- * @since 2020-04-23
+ * @since 2020-04-30
  */
 public interface SysPermissionMapper extends BaseMapper<SysPermission> {
 

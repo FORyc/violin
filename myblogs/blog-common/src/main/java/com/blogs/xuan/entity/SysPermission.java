@@ -12,34 +12,46 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 后台用户角色表
+ * 后台用户权限表
  * </p>
  *
  * @author 9527
- * @since 2020-04-23
+ * @since 2020-04-30
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="SysRole对象", description="后台用户角色表")
-public class SysRole implements Serializable {
+@ApiModel(value="SysPermission对象", description="后台用户权限表")
+public class SysPermission implements Serializable {
 
     private static final long serialVersionUID=1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    @ApiModelProperty(value = "父级权限id")
+    private Long pid;
+
     @ApiModelProperty(value = "名称")
     private String name;
 
-    @ApiModelProperty(value = "描述")
-    private String description;
+    @ApiModelProperty(value = "权限值")
+    private String value;
+
+    @ApiModelProperty(value = "图标")
+    private String icon;
+
+    @ApiModelProperty(value = "权限类型：0->目录；1->菜单；2->按钮（接口绑定权限）")
+    private Integer type;
+
+    @ApiModelProperty(value = "前端资源路径")
+    private String uri;
+
+    @ApiModelProperty(value = "启用状态；0->禁用；1->启用")
+    private Integer status;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "启用状态：0->禁用；1->启用")
-    private String status;
 
     @ApiModelProperty(value = "排序")
     private Integer sort;
