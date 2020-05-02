@@ -18,7 +18,7 @@
     </modules>
 
     <properties>
-        <mybatis-plus.verson>3.2.0</mybatis-plus.verson>
+        <mybatis-plus.verson>3.3.0</mybatis-plus.verson>
         <mysql-connector.version>8.0.15</mysql-connector.version>
         <swagger-ui.version>2.8.0</swagger-ui.version>
     </properties>
