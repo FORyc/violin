@@ -1,19 +1,21 @@
 package com.blogs.xuan.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.blogs.configuration.security.util.JwtUtils;
 import com.blogs.dto.LoginDto;
 import com.blogs.xuan.entity.SysUser;
+import com.blogs.xuan.entity.UserRole;
 import com.blogs.xuan.service.ISysUserService;
+import com.blogs.xuan.service.IUserRoleService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.api.CommonResult;
 import top.exception.BusinessException;
 import top.exception.EmBusinessException;
@@ -30,6 +32,7 @@ import java.util.Map;
  * @author 9527
  * @since 2020-04-22
  */
+@Api(value = "sysUser接口")
 @Slf4j
 @RestController
 @RequestMapping("/admin/sys-user")
@@ -38,7 +41,7 @@ public class SysUserController {
     @Autowired
     private ISysUserService sysUserService;
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private IUserRoleService iUserRoleService;
 
     @Value("${jwt.tokenHeader}")
     private String tokenHeader;
@@ -46,12 +49,14 @@ public class SysUserController {
     private String jwtPrefix;
 
 
+    @ApiOperation(value = "注册用户")
     @PostMapping(value = "/register")
     public CommonResult register(@RequestBody SysUser sysUser){
         boolean save = sysUserService.saveAdmin(sysUser, null);
         return save ? CommonResult.success(sysUser) : CommonResult.error("注册失败，请联系管理员");
     }
 
+    @ApiOperation(value = "用户登录")
     @PostMapping(value = "/login")
     public CommonResult login(@RequestBody LoginDto loginDto){
         String login = sysUserService.login(loginDto.getUsername(), loginDto.getPassword());
@@ -62,6 +67,14 @@ public class SysUserController {
         map.put("token", login);
         map.put("prefix", jwtPrefix);
         return CommonResult.success(map);
+    }
+
+    @PostMapping(value = "/delete/{userId}")
+    public CommonResult delete(@PathVariable Long userId){
+        QueryWrapper<UserRole> userRoleQueryWrapper = new QueryWrapper<>();
+        userRoleQueryWrapper.lambda().eq(UserRole::getUserId, userId);
+        iUserRoleService.remove(userRoleQueryWrapper);
+        return CommonResult.success(sysUserService.removeById(userId));
     }
 
     @PostMapping(value = "/logout")
