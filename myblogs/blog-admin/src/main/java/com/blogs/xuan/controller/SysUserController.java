@@ -2,7 +2,6 @@ package com.blogs.xuan.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.blogs.configuration.security.util.JwtUtils;
 import com.blogs.dto.LoginDto;
 import com.blogs.xuan.entity.SysUser;
 import com.blogs.xuan.entity.UserRole;
@@ -13,7 +12,6 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import top.api.CommonResult;
@@ -52,6 +50,12 @@ public class SysUserController {
     @ApiOperation(value = "注册用户")
     @PostMapping(value = "/register")
     public CommonResult register(@RequestBody SysUser sysUser){
+        QueryWrapper<SysUser> sysUserQueryWrapper = new QueryWrapper<>();
+        sysUserQueryWrapper.eq("username", sysUser.getUsername());
+        SysUser one = sysUserService.getOne(sysUserQueryWrapper, true);
+        if(one != null){
+            return CommonResult.error("用户名 [" + sysUser.getUsername() + "] 已被使用");
+        }
         boolean save = sysUserService.saveAdmin(sysUser, null);
         return save ? CommonResult.success(sysUser) : CommonResult.error("注册失败，请联系管理员");
     }
@@ -65,7 +69,7 @@ public class SysUserController {
         }
         Map<String, Object> map = new HashMap<>();
         map.put("token", login);
-        map.put("prefix", jwtPrefix);
+        map.put("tokenHeader", tokenHeader);
         return CommonResult.success(map);
     }
 
