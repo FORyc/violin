@@ -21,7 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String[] IGNORE_URL = {"/api/getToken", "/admin/login", "/test/user/**"};
+    private static final String[] IGNORE_URL = {"/api/getToken", "/admin/sys-user/login", "/admin/sys-user/register"};
 
     @Autowired
     private ISysUserService sysUserService;

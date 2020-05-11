@@ -2,6 +2,7 @@ package com.blogs.xuan.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.blogs.configuration.security.util.JwtUtils;
 import com.blogs.dto.LoginDto;
 import com.blogs.xuan.entity.SysUser;
 import com.blogs.xuan.entity.UserRole;
@@ -12,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import top.api.CommonResult;
@@ -20,7 +22,9 @@ import top.exception.EmBusinessException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -40,6 +44,8 @@ public class SysUserController {
     private ISysUserService sysUserService;
     @Autowired
     private IUserRoleService iUserRoleService;
+    @Autowired
+    private JwtUtils jwtUtils;
 
     @Value("${jwt.tokenHeader}")
     private String tokenHeader;
@@ -68,9 +74,21 @@ public class SysUserController {
             throw new BusinessException(EmBusinessException.USER_NOT_FOUND);
         }
         Map<String, Object> map = new HashMap<>();
-        map.put("token", login);
-        map.put("tokenHeader", tokenHeader);
+        map.put("token", jwtPrefix + login);
         return CommonResult.success(map);
+    }
+
+    @GetMapping(value = "/getInfo")
+    public CommonResult getInfo(HttpServletRequest request){
+        Map<String, Object> resultMap = new HashMap<>();
+        String token = request.getHeader(tokenHeader);
+        String substring = token.substring(jwtPrefix.length());
+        String username = jwtUtils.getUserNameFromToken(substring);
+        SysUser sysUser = sysUserService.loadUserByUsername(username);
+        resultMap.put("roles", sysUser.getAuthorities().stream().map(SimpleGrantedAuthority::getAuthority).toArray(String[]::new));
+        resultMap.put("name", sysUser.getUsername());
+        resultMap.put("avatar", "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+        return CommonResult.success(resultMap);
     }
 
     @PostMapping(value = "/delete/{userId}")

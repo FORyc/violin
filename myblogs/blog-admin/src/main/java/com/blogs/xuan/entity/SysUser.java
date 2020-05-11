@@ -63,9 +63,11 @@ public class SysUser implements Serializable, UserDetails {
     @TableField(exist = false)
     private Long roleId;
 
+    @TableField(exist = false)
+    private String avatar;
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<SimpleGrantedAuthority> getAuthorities() {
         return authorities.stream().map(e-> new SimpleGrantedAuthority(e.getValue())).collect(Collectors.toList());
     }
 

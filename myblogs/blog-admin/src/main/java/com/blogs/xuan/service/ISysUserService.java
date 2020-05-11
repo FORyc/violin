@@ -2,7 +2,9 @@ package com.blogs.xuan.service;
 
 import com.blogs.xuan.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
  * <p>
@@ -13,6 +15,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @since 2020-04-22
  */
 public interface ISysUserService extends IService<SysUser>, UserDetailsService {
+
+    @Override
+    SysUser loadUserByUsername(String s) throws UsernameNotFoundException;
 
     /**
      *  管理员登录操作

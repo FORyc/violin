@@ -49,7 +49,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     private JwtUtils jwtUtils;
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    public SysUser loadUserByUsername(String s) throws UsernameNotFoundException {
         QueryWrapper<SysUser> userQueryWrapper = new QueryWrapper<>();
         userQueryWrapper.eq("username", s);
         SysUser sysUser = sysUserMapper.selectOne(userQueryWrapper);
@@ -65,7 +65,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public String login(String username, String password) {
-        UserDetails userDetails = loadUserByUsername(username);
+        SysUser userDetails = loadUserByUsername(username);
         if(userDetails == null){
             log.warn("用户名[{}]未找到", username);
             return null;
