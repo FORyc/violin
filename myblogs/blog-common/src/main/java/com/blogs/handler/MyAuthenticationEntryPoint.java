@@ -1,11 +1,10 @@
-package com.blogs.configuration.security.handler;
+package com.blogs.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import top.api.CommonResult;
 import top.constants.Constant;
-import top.util.JacksonUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

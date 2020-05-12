@@ -1,8 +1,8 @@
 package com.blogs.configuration.security;
 
 import com.blogs.configuration.security.filter.JwtAuthenticationTokenFilter;
-import com.blogs.configuration.security.handler.MyAccessDeniedHandler;
-import com.blogs.configuration.security.handler.MyAuthenticationEntryPoint;
+import com.blogs.handler.MyAccessDeniedHandler;
+import com.blogs.handler.MyAuthenticationEntryPoint;
 import com.blogs.xuan.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
