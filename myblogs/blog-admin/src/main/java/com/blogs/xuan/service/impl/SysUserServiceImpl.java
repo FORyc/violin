@@ -56,7 +56,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         if(sysUser == null){
             throw new UsernameNotFoundException("未找到用户名 [ "+ s + " ] 相关的用户信息");
         }
-        Set<SysPermission> permission = sysPermissionMapper.getPermissionByUid(sysUser.getId());
+        Set<SysPermission> permission = sysPermissionMapper.findAdminPermissionByUid(sysUser.getId());
         sysUser.setAuthorities(permission);
         Set<SysRole> sysRoles = sysRoleMapper.getRoleBySysUid(sysUser.getId());
         sysUser.setSysRoles(sysRoles);

@@ -23,4 +23,6 @@ public interface IUserService extends IService<User>, UserDetailsService {
      */
     @Override
     User loadUserByUsername(String s) throws UsernameNotFoundException;
+
+    String login(String username, String password);
 }

@@ -17,6 +17,11 @@ import java.util.Set;
  */
 public interface SysPermissionMapper extends BaseMapper<SysPermission> {
 
+    /**
+     *  查询管理员权限
+     * @param uid 管理员ID
+     * @return
+     */
     @Select("SELECT " +
             "sys_permission.* " +
             "FROM " +
@@ -25,6 +30,22 @@ public interface SysPermissionMapper extends BaseMapper<SysPermission> {
             "LEFT JOIN user_role ON user_role.role_id = role_permission.role_id " +
             "LEFT JOIN sys_user ON sys_user.id = user_role.user_id " +
             "WHERE sys_user.id = #{userId}")
-    Set<SysPermission> getPermissionByUid(@Param("userId") Long uid);
+    Set<SysPermission> findAdminPermissionByUid(@Param("userId") Long uid);
+
+
+    /**
+     * 查询用户权限
+     * @param uid 用户ID
+     * @return
+     */
+    @Select("SELECT " +
+            "sys_permission.* " +
+            "FROM " +
+            "sys_permission " +
+            "LEFT JOIN role_permission ON role_permission.permission_id = sys_permission.id " +
+            "LEFT JOIN user_role ON user_role.role_id = role_permission.role_id " +
+            "LEFT JOIN user ON user.id = user_role.user_id " +
+            "WHERE user.id = #{userId}")
+    Set<SysPermission> findPermissionByUid(@Param("userId") Long uid);
 
 }

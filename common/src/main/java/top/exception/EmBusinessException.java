@@ -12,6 +12,7 @@ import top.constants.Constant;
 public enum EmBusinessException implements ErrorInfo {
     // 通用错误
     DEFAULT_EXCEPTION(Constant.FAIL, "fail"),
+    PARAMS_NOT_COMPLETE(Constant.FAIL, "参数不完整"),
     USER_NOT_FOUND(Constant.FAIL, "为查询到相关用户"),
     ;
 
