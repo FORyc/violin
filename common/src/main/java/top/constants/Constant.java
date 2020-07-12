@@ -16,7 +16,7 @@ public class Constant {
     public static final int FORBIDDEN = 403000;
 
     /**
-     *
+     * 未授权返回码
      */
     public static final int UNAUTHORIZED = 403001;
 
