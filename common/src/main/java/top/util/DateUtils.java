@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /**
  * @author 9527
- * 时间操作类
+ * 时间操作类  使用localdate进行转换
  */
 public class DateUtils {
 
@@ -43,6 +43,9 @@ public class DateUtils {
         return Date.from(instant);
     }
 
+    public static Long toMillis(){
+        return System.currentTimeMillis();
+    }
 
 
 }
