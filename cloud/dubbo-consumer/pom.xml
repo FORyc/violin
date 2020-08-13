@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>dubbo-providers</artifactId>
+    <artifactId>dubbo-consumer</artifactId>
     <properties>
         <dubbo.version>2.7.7</dubbo.version>
     </properties>
@@ -30,17 +30,12 @@
             <artifactId>dubbo</artifactId>
             <version>${dubbo.version}</version>
         </dependency>
-        <!-- Dubbo Nacos registry dependency -->
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo-registry-nacos</artifactId>
             <version>${dubbo.version}</version>
         </dependency>
-        <!--        <dependency>-->
-<!--            <groupId>com.alibaba.nacos</groupId>-->
-<!--            <artifactId>nacos-client</artifactId>-->
-<!--            <version>1.1.0</version>-->
-<!--        </dependency>-->
     </dependencies>
+
 
 </project>

@@ -5,14 +5,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-/**
- * @author 9527
- */
-@EnableDubbo(scanBasePackages="com.xuan.service.*")
-@EnableDiscoveryClient
+@EnableDubbo(scanBasePackages = "com.xuan.service.*")
 @SpringBootApplication
-public class DubboProvidersApplication {
+@EnableDiscoveryClient
+public class DubboConsumerApplication {
     public static void main(String[] args) {
-        SpringApplication.run(DubboProvidersApplication.class, args);
+        SpringApplication.run(DubboConsumerApplication.class, args);
     }
 }
