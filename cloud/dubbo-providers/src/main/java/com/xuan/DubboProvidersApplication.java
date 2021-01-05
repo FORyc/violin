@@ -8,7 +8,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 /**
  * @author 9527
  */
-@EnableDubbo(scanBasePackages="com.xuan.service.*")
+//@EnableDubbo(scanBasePackages="com.xuan.service.*")
 @EnableDiscoveryClient
 @SpringBootApplication
 public class DubboProvidersApplication {
