@@ -11,7 +11,7 @@
 
     <artifactId>dubbo-consumer</artifactId>
     <properties>
-        <dubbo.version>2.7.7</dubbo.version>
+        <dubbo.version>2.7.13</dubbo.version>
     </properties>
 
     <dependencies>
